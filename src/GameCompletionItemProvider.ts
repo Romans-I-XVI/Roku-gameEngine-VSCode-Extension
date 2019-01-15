@@ -37,6 +37,7 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
         completionItems.push(this.getDynamicCompletionItem_createInstance());
         completionItems.push(this.getDynamicCompletionItem_changeRoom());
         completionItems.push(this.getDynamicCompletionItem_getFont());
+        completionItems.push(this.getDynamicCompletionItem_playSound());
         return completionItems;
     }
 
@@ -105,6 +106,29 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
             detail: 'getFont(font_name as String) as Object',
             documentation: new vscode.MarkdownString(
                 `Returns a font previously loaded with loadFont.`
+            )
+        };
+    }
+
+    private getDynamicCompletionItem_playSound(): CompletionItem {
+        let snippet = 'playSound';
+        let definitions = MainDefinitionWatcher.Definitions['loadSound'];
+
+        if (definitions.length > 0) {
+            snippet += '(${1|';
+            snippet += this.convertDefinitionsArrayToCommaSeparatedStrings(definitions);
+            snippet += '|}${2: [, volume = 100]})';
+        } else {
+            snippet += '(${1:sound_name as String}${2: [, volume = 100]})';
+        }
+
+        return {
+            kind: CompletionItemKind.Method,
+            label:'playSound',
+            insertText: new vscode.SnippetString(snippet),
+            detail: 'playSound(sound_name as String, volume = 100) as Boolean',
+            documentation: new vscode.MarkdownString(
+                `Play a sound that was previously loaded with loadSound.`
             )
         };
     }
