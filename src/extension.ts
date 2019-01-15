@@ -7,8 +7,11 @@
 import * as vscode from 'vscode';
 
 import GameCompletionItemProvider from './GameCompletionItemProvider';
+import MainDefinitionWatcher from './MainDefinitionWatcher';
 
 export function activate(context: vscode.ExtensionContext) {
+
+    const mainDefinitionWatcher = new MainDefinitionWatcher();
 
     const selector = { scheme: 'file', pattern: '**/*.{brs}' };
 
