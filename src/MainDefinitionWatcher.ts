@@ -6,6 +6,8 @@ export default class MainDefinitionWatcher{
         return MainDefinitionWatcher._definedObjects;
     }
 
+    private regexSuffix: string = '(\\n*.*)\\((\\n*.*)"(.*)"';
+
     public constructor(){
         vscode.workspace.findFiles('**/*main.brs').then(
             (value) => {
@@ -23,15 +25,20 @@ export default class MainDefinitionWatcher{
     }
 
     private loadDefinedObjects(uri:vscode.Uri){
-        vscode.workspace.openTextDocument(uri).then(function(mainTextDocument) {
+        vscode.workspace.openTextDocument(uri).then((mainTextDocument) => {
             let text = mainTextDocument.getText();
-            let matches = text.match(new RegExp('defineObject\\("(.+?)"', 'ig'));
+            let expression = new RegExp('defineObject' + this.regexSuffix, 'ig');
+            let matches = text.match(expression);
             if (matches !== null) {
                 MainDefinitionWatcher._definedObjects = [];
                 matches.forEach(match => {
-                    match = match.substring(14, match.length - 1);
-                    MainDefinitionWatcher.definedObjects.push(match);
                     console.log(match);
+                    let submatches = match.match('"(.*)"');
+                    if (submatches !== null) {
+                        let submatch = submatches[0];
+                        submatch = submatch.substring(1, submatch.length - 1);
+                        MainDefinitionWatcher.definedObjects.push(submatch);
+                    }
                 });
             }
         });
