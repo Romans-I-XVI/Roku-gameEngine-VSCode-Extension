@@ -36,6 +36,7 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
         let completionItems = this.getStaticCompletionItems();
         completionItems.push(this.getDynamicCompletionItem_createInstance());
         completionItems.push(this.getDynamicCompletionItem_changeRoom());
+        completionItems.push(this.getDynamicCompletionItem_getFont());
         return completionItems;
     }
 
@@ -81,6 +82,29 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
             detail: 'changeRoom(room_name as String, args = {} as Object) as Boolean',
             documentation: new vscode.MarkdownString(
                 `Immediately changes to the given room. When called onChangeRoom will be called on all existing object instances, those instances will then be destroyed but onDestroy will NOT be called on them. Returns false if a room of a given name has not been defined.`
+            )
+        };
+    }
+
+    private getDynamicCompletionItem_getFont(): CompletionItem {
+        let snippet = 'getFont';
+        let definitions = MainDefinitionWatcher.Definitions['loadFont'];
+
+        if (definitions.length > 0) {
+            snippet += '(${1|';
+            snippet += this.convertDefinitionsArrayToCommaSeparatedStrings(definitions);
+            snippet += '|})';
+        } else {
+            snippet += '(${1:font_name as String})';
+        }
+
+        return {
+            kind: CompletionItemKind.Method,
+            label: 'getFont',
+            insertText: new vscode.SnippetString(snippet),
+            detail: 'getFont(font_name as String) as Object',
+            documentation: new vscode.MarkdownString(
+                `Returns a font previously loaded with loadFont.`
             )
         };
     }
