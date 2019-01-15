@@ -43,6 +43,8 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
         completionItems.push(this.getDynamicCompletionItem_createInstance(defineObjectString));
         completionItems.push(this.getDynamicCompletionItem_getInstanceByName(defineObjectString));
         completionItems.push(this.getDynamicCompletionItem_getAllInstances(defineObjectString));
+        completionItems.push(this.getDynamicCompletionItem_destroyAllInstances(defineObjectString));
+        completionItems.push(this.getDynamicCompletionItem_instanceCount(defineObjectString));
         completionItems.push(this.getDynamicCompletionItem_changeRoom(defineRoomString));
         completionItems.push(this.getDynamicCompletionItem_getFont(loadFontString));
         completionItems.push(this.getDynamicCompletionItem_playSound(loadSoundString));
@@ -112,6 +114,50 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
             detail: 'getAllInstances(object_name as String) as Dynamic',
             documentation: new vscode.MarkdownString(
                 `Returns an roArray of all instances with a given object name, returns invalid if no objects have been defined with that name.`
+            )
+        };
+    }
+
+    private getDynamicCompletionItem_destroyAllInstances(definitions: string): CompletionItem {
+        let snippet = 'destroyAllInstances';
+
+        if (definitions.length > 0) {
+            snippet += '(${1|';
+            snippet += definitions;
+            snippet += '|})';
+        } else {
+            snippet += 'destroyAllInstances(${1:object_name as String})';
+        }
+
+        return {
+            kind: CompletionItemKind.Method,
+            label: 'destroyAllInstances',
+            insertText: new vscode.SnippetString(snippet),
+            detail: 'destroyAllInstances(object_name as String) as Void',
+            documentation: new vscode.MarkdownString(
+                `Destroys all instances of the given object name.`
+            )
+        };
+    }
+
+    private getDynamicCompletionItem_instanceCount(definitions: string): CompletionItem {
+        let snippet = 'instanceCount';
+
+        if (definitions.length > 0) {
+            snippet += '(${1|';
+            snippet += definitions;
+            snippet += '|})';
+        } else {
+            snippet += 'instanceCount(${1:object_name as String})';
+        }
+
+        return {
+            kind: CompletionItemKind.Method,
+            label: 'instanceCount',
+            insertText: new vscode.SnippetString(snippet),
+            detail: 'instanceCount(object_name as String) as Integer',
+            documentation: new vscode.MarkdownString(
+                `Returns the number of instances of the given object name.`
             )
         };
     }
