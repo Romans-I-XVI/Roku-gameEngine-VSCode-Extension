@@ -41,6 +41,7 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
         let loadBitmapString = this.convertDefinitionsArrayToCommaSeparatedStrings(MainDefinitionWatcher.Definitions['loadBitmap']);
 
         completionItems.push(this.getDynamicCompletionItem_createInstance(defineObjectString));
+        completionItems.push(this.getDynamicCompletionItem_getInstanceByName(defineObjectString));
         completionItems.push(this.getDynamicCompletionItem_changeRoom(defineRoomString));
         completionItems.push(this.getDynamicCompletionItem_getFont(loadFontString));
         completionItems.push(this.getDynamicCompletionItem_playSound(loadSoundString));
@@ -66,6 +67,28 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
             detail: 'createInstance(object_name as String, args = {} as Object) as Dynamic',
             documentation: new vscode.MarkdownString(
                 `Spawns a new instance of a previously defined game object. Returns the new instance if it was created successfully, otherwise returns invalid.`
+            )
+        };
+    }
+
+    private getDynamicCompletionItem_getInstanceByName(definitions: string): CompletionItem {
+        let snippet = 'getInstanceByName';
+
+        if (definitions.length > 0) {
+            snippet += '(${1|';
+            snippet += definitions;
+            snippet += '|})';
+        } else {
+            snippet += 'getInstanceByName(${1:object_name as String})';
+        }
+
+        return {
+            kind: CompletionItemKind.Method,
+            label: 'getInstanceByName',
+            insertText: new vscode.SnippetString(snippet),
+            detail: 'getInstanceByName(object_name as String) as Dynamic',
+            documentation: new vscode.MarkdownString(
+                `Returns the first instance of the given object name if one exists, otherwise returns invalid.`
             )
         };
     }
