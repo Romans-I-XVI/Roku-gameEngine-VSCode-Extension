@@ -42,6 +42,7 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
 
         completionItems.push(this.getDynamicCompletionItem_createInstance(defineObjectString));
         completionItems.push(this.getDynamicCompletionItem_getInstanceByName(defineObjectString));
+        completionItems.push(this.getDynamicCompletionItem_getAllInstances(defineObjectString));
         completionItems.push(this.getDynamicCompletionItem_changeRoom(defineRoomString));
         completionItems.push(this.getDynamicCompletionItem_getFont(loadFontString));
         completionItems.push(this.getDynamicCompletionItem_playSound(loadSoundString));
@@ -89,6 +90,28 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
             detail: 'getInstanceByName(object_name as String) as Dynamic',
             documentation: new vscode.MarkdownString(
                 `Returns the first instance of the given object name if one exists, otherwise returns invalid.`
+            )
+        };
+    }
+
+    private getDynamicCompletionItem_getAllInstances(definitions: string): CompletionItem {
+        let snippet = 'getAllInstances';
+
+        if (definitions.length > 0) {
+            snippet += '(${1|';
+            snippet += definitions;
+            snippet += '|})';
+        } else {
+            snippet += 'getAllInstances(${1:object_name as String})';
+        }
+
+        return {
+            kind: CompletionItemKind.Method,
+            label: 'getAllInstances',
+            insertText: new vscode.SnippetString(snippet),
+            detail: 'getAllInstances(object_name as String) as Dynamic',
+            documentation: new vscode.MarkdownString(
+                `Returns an roArray of all instances with a given object name, returns invalid if no objects have been defined with that name.`
             )
         };
     }
