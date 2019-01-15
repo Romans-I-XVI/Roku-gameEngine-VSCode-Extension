@@ -34,21 +34,26 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
 
     private getGameCompletionItems(): CompletionItem[] {
         let completionItems = this.getStaticCompletionItems();
-        completionItems.push(this.getDynamicCompletionItem_createInstance());
-        completionItems.push(this.getDynamicCompletionItem_changeRoom());
-        completionItems.push(this.getDynamicCompletionItem_getFont());
-        completionItems.push(this.getDynamicCompletionItem_playSound());
-        completionItems.push(this.getDynamicCompletionItem_getBitmap());
+        let defineObjectString = this.convertDefinitionsArrayToCommaSeparatedStrings(MainDefinitionWatcher.Definitions['defineObject']);
+        let defineRoomString = this.convertDefinitionsArrayToCommaSeparatedStrings(MainDefinitionWatcher.Definitions['defineRoom']);
+        let loadFontString = this.convertDefinitionsArrayToCommaSeparatedStrings(MainDefinitionWatcher.Definitions['loadFont']);
+        let loadSoundString = this.convertDefinitionsArrayToCommaSeparatedStrings(MainDefinitionWatcher.Definitions['loadSound']);
+        let loadBitmapString = this.convertDefinitionsArrayToCommaSeparatedStrings(MainDefinitionWatcher.Definitions['loadBitmap']);
+
+        completionItems.push(this.getDynamicCompletionItem_createInstance(defineObjectString));
+        completionItems.push(this.getDynamicCompletionItem_changeRoom(defineRoomString));
+        completionItems.push(this.getDynamicCompletionItem_getFont(loadFontString));
+        completionItems.push(this.getDynamicCompletionItem_playSound(loadSoundString));
+        completionItems.push(this.getDynamicCompletionItem_getBitmap(loadBitmapString));
         return completionItems;
     }
 
-    private getDynamicCompletionItem_createInstance(): CompletionItem {
+    private getDynamicCompletionItem_createInstance(definitions: string): CompletionItem {
         let snippet = 'createInstance';
-        let definitions = MainDefinitionWatcher.Definitions['defineObject'];
 
         if (definitions.length > 0) {
             snippet += '(${1|';
-            snippet += this.convertDefinitionsArrayToCommaSeparatedStrings(definitions);
+            snippet += definitions;
             snippet += '|}${2: [, args as Object]})';
         } else {
             snippet += '(${1:object_name as String}${2: [, args as Object]})';
@@ -65,13 +70,12 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
         };
     }
 
-    private getDynamicCompletionItem_changeRoom(): CompletionItem {
+    private getDynamicCompletionItem_changeRoom(definitions: string): CompletionItem {
         let snippet = 'changeRoom';
-        let definitions = MainDefinitionWatcher.Definitions['defineRoom'];
 
         if (definitions.length > 0) {
             snippet += '(${1|';
-            snippet += this.convertDefinitionsArrayToCommaSeparatedStrings(definitions);
+            snippet += definitions;
             snippet += '|}${2: [, args as Object]})';
         } else {
             snippet += '(${1:room_name as String}${2: [, args as Object]})';
@@ -88,13 +92,12 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
         };
     }
 
-    private getDynamicCompletionItem_getFont(): CompletionItem {
+    private getDynamicCompletionItem_getFont(definitions: string): CompletionItem {
         let snippet = 'getFont';
-        let definitions = MainDefinitionWatcher.Definitions['loadFont'];
 
         if (definitions.length > 0) {
             snippet += '(${1|';
-            snippet += this.convertDefinitionsArrayToCommaSeparatedStrings(definitions);
+            snippet += definitions;
             snippet += '|})';
         } else {
             snippet += '(${1:font_name as String})';
@@ -111,13 +114,12 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
         };
     }
 
-    private getDynamicCompletionItem_playSound(): CompletionItem {
+    private getDynamicCompletionItem_playSound(definitions: string): CompletionItem {
         let snippet = 'playSound';
-        let definitions = MainDefinitionWatcher.Definitions['loadSound'];
 
         if (definitions.length > 0) {
             snippet += '(${1|';
-            snippet += this.convertDefinitionsArrayToCommaSeparatedStrings(definitions);
+            snippet += definitions;
             snippet += '|}${2: [, volume = 100]})';
         } else {
             snippet += '(${1:sound_name as String}${2: [, volume = 100]})';
@@ -134,13 +136,12 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
         };
     }
 
-    private getDynamicCompletionItem_getBitmap(): CompletionItem {
+    private getDynamicCompletionItem_getBitmap(definitions: string): CompletionItem {
         let snippet = 'getBitmap';
-        let definitions = MainDefinitionWatcher.Definitions['loadBitmap'];
 
         if (definitions.length > 0) {
             snippet += '(${1|';
-            snippet += this.convertDefinitionsArrayToCommaSeparatedStrings(definitions);
+            snippet += definitions;
             snippet += '|})';
         } else {
             snippet += '(${1:bitmap_name as String})';

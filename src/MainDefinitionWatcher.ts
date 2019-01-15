@@ -34,11 +34,11 @@ export default class MainDefinitionWatcher {
 
     private loadDefinitions(uri: vscode.Uri, key: string) {
         vscode.workspace.openTextDocument(uri).then((mainTextDocument) => {
+            MainDefinitionWatcher._definitions[key] = [];
             let text = mainTextDocument.getText();
             let expression = new RegExp(key + this.regexSuffix, 'ig');
             let matches = text.match(expression);
             if (matches !== null) {
-                MainDefinitionWatcher._definitions[key] = [];
                 matches.forEach(match => {
                     console.log(match);
                     let submatches = match.match('"(.*)"');
