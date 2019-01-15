@@ -38,7 +38,7 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
             if (GameCompletionItemProvider.defined_objects.length > 0) {
                 snippet += "(${1|";
                 for (let index = 0; index < GameCompletionItemProvider.defined_objects.length; index++) {
-                    snippet += GameCompletionItemProvider.defined_objects[index];
+                    snippet += '"' + GameCompletionItemProvider.defined_objects[index] + '"';
                     if (index < GameCompletionItemProvider.defined_objects.length - 1) {
                         snippet += ",";
                     }
@@ -47,7 +47,7 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
             } else {
                 snippet += '(${1:object_name as String}${2: [, args as Object]})';
             }
-            
+
             let test:CompletionItem[] = [
                 {
                     label: 'createInstance',
