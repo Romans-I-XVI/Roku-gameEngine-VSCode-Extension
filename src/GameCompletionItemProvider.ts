@@ -29,11 +29,13 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
 
     private getDynamicCompletionItem_createInstance(): CompletionItem {
         let snippet = "createInstance";
-        if (MainDefinitionWatcher.definedObjects.length > 0) {
+        let definitions = MainDefinitionWatcher.Definitions['defineObject'];
+
+        if (definitions.length > 0) {
             snippet += "(${1|";
-            for (let index = 0; index < MainDefinitionWatcher.definedObjects.length; index++) {
-                snippet += '"' + MainDefinitionWatcher.definedObjects[index] + '"';
-                if (index < MainDefinitionWatcher.definedObjects.length - 1) {
+            for (let index = 0; index < definitions.length; index++) {
+                snippet += '"' + definitions[index] + '"';
+                if (index < definitions.length - 1) {
                     snippet += ",";
                 }
             }
