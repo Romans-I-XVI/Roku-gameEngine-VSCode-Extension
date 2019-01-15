@@ -35,7 +35,6 @@ export default class MainDefinitionWatcher {
     private loadDefinitions(uri: vscode.Uri, key: string) {
         vscode.workspace.openTextDocument(uri).then((mainTextDocument) => {
             let text = mainTextDocument.getText();
-            text = text.replace(new RegExp('[\n\r]', 'g'), "");
             let expression = new RegExp(key + this.regexSuffix, 'ig');
             let matches = text.match(expression);
             if (matches !== null) {
