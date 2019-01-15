@@ -38,6 +38,7 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
         completionItems.push(this.getDynamicCompletionItem_changeRoom());
         completionItems.push(this.getDynamicCompletionItem_getFont());
         completionItems.push(this.getDynamicCompletionItem_playSound());
+        completionItems.push(this.getDynamicCompletionItem_getBitmap());
         return completionItems;
     }
 
@@ -124,11 +125,34 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
 
         return {
             kind: CompletionItemKind.Method,
-            label:'playSound',
+            label: 'playSound',
             insertText: new vscode.SnippetString(snippet),
             detail: 'playSound(sound_name as String, volume = 100) as Boolean',
             documentation: new vscode.MarkdownString(
                 `Play a sound that was previously loaded with loadSound.`
+            )
+        };
+    }
+
+    private getDynamicCompletionItem_getBitmap(): CompletionItem {
+        let snippet = 'getBitmap';
+        let definitions = MainDefinitionWatcher.Definitions['loadBitmap'];
+
+        if (definitions.length > 0) {
+            snippet += '(${1|';
+            snippet += this.convertDefinitionsArrayToCommaSeparatedStrings(definitions);
+            snippet += '|})';
+        } else {
+            snippet += '(${1:bitmap_name as String})';
+        }
+
+        return {
+            kind: CompletionItemKind.Method,
+            label: 'getBitmap',
+            insertText: new vscode.SnippetString(snippet),
+            detail: 'getBitmap(bitmap_name as String) as Dynamic',
+            documentation: new vscode.MarkdownString(
+                `Returns a bitmap previously loaded via loadBitmap. Returns invalid if no bitmap of the given name was previously loaded.`
             )
         };
     }
