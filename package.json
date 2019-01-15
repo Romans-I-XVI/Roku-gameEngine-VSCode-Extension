@@ -13,6 +13,14 @@
 		"*"
 	],
 	"main": "./out/extension.js",
+	"contributes": {
+		"snippets": [
+			{
+				"language": "brightscript",
+				"path": "./snippets/brightscript.json"
+			}
+		]
+	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",

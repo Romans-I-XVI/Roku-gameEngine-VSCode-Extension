@@ -1,0 +1,39 @@
+{
+	"engineobject": {
+		"prefix": "engineobject",
+		"body": [
+			"function ${1:function_name}(object)",
+			"",
+			"\tobject.onCreate = function(args)",
+			"\t\t$0",
+			"\tend function",
+			"",
+			"end function"
+		],
+		"description": "Template for defining a new Roku-gameEngine object."
+	},
+	"image_args": {
+		"prefix": "image_args",
+		"body": [
+			"{",
+			"\tname: \"main\"",
+			"\toffset_x: 0,",
+			"\toffset_y: 0,",
+			"\torigin_x: 0,",
+			"\torigin_y: 0,",
+			"\tscale_x: 1.0,",
+			"\tscale_y: 1.0,",
+			"\tcolor: &hFFFFFF,",
+			"\talpha: 255,",
+			"\tenabled: true,",
+			"",
+			"\t' For animation to work all 4 of the following properties must be defined",
+			"\timage_count: 1,",
+			"\timage_width: invalid,",
+			"\timage_height: invalid,",
+			"\tanimation_speed: 0",
+			"}"
+		],
+		"description": "Template with the default values of image_args to be passed in to addImage"
+    }
+}
