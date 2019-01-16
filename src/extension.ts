@@ -7,6 +7,7 @@
 import * as vscode from 'vscode';
 
 import GameCompletionItemProvider from './GameCompletionItemProvider';
+import ObjectCompletionItemProvider from './ObjectCompletionItemProvider';
 import MainDefinitionWatcher from './MainDefinitionWatcher';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -16,4 +17,5 @@ export function activate(context: vscode.ExtensionContext) {
     const selector = { scheme: 'file', pattern: '**/*.{brs}' };
 
 	context.subscriptions.push(vscode.languages.registerCompletionItemProvider(selector, new GameCompletionItemProvider(), '.'));
+	context.subscriptions.push(vscode.languages.registerCompletionItemProvider(selector, new ObjectCompletionItemProvider(), '.'));
 }
