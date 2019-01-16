@@ -8,6 +8,7 @@ import * as vscode from 'vscode';
 
 import GameCompletionItemProvider from './GameCompletionItemProvider';
 import ObjectCompletionItemProvider from './ObjectCompletionItemProvider';
+import MObjectCompletionItemProvider from './MObjectCompletionItemProvider';
 import MainDefinitionWatcher from './MainDefinitionWatcher';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -18,4 +19,5 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.languages.registerCompletionItemProvider(selector, new GameCompletionItemProvider(), '.'));
 	context.subscriptions.push(vscode.languages.registerCompletionItemProvider(selector, new ObjectCompletionItemProvider(), '.'));
+	context.subscriptions.push(vscode.languages.registerCompletionItemProvider(selector, new MObjectCompletionItemProvider(), '.'));
 }

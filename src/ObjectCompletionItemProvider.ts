@@ -8,13 +8,16 @@ import {
 
 import * as vscode from 'vscode';
 
-export default class GameCompletionItemProvider implements CompletionItemProvider {
+export default class ObjectCompletionItemProvider implements CompletionItemProvider {
 
     public provideCompletionItems(document: TextDocument, position: Position, token: CancellationToken, context: vscode.CompletionContext): CompletionItem[] {
         let linePrefix = document.lineAt(position).text.substr(0, position.character);
         let completionItems: CompletionItem[] = [];
 
         let endsWithObject = linePrefix.endsWith('object.');
+        if (!endsWithObject) {
+            return [];
+        }
         let precededByChars = (linePrefix.match(new RegExp('([a-z|0-9|_])object\\.', 'i')) !== null);
         let partOfGameObject = (document.getText().match(new RegExp('object\\.onCreate', 'i')) !== null);
 
