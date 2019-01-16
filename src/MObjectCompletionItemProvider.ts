@@ -23,14 +23,53 @@ export default class MObjectCompletionItemProvider implements CompletionItemProv
 
 
         if (endsWithM && !precededByChars && partOfGameObject) {
-            completionItems.push(
-                {
-                    kind: CompletionItemKind.Method,
-                    label: "Mtesting"
-                }
-            );
+            let variableCompletionItems = this.getStandardObjectVariableCompletionItems();
+            variableCompletionItems.forEach(element => {
+                completionItems.push(element);
+            });
         }
 
         return completionItems;
+    }
+
+    private getStandardObjectVariableCompletionItems(): CompletionItem[] {
+        return [
+            {
+                kind: CompletionItemKind.Constant,
+                label: 'name'
+            },
+            {
+                kind: CompletionItemKind.Constant,
+                label: 'id'
+            },
+            {
+                kind: CompletionItemKind.Constant,
+                label: 'game'
+            },
+            {
+                kind: CompletionItemKind.Variable,
+                label: 'enabled'
+            },
+            {
+                kind: CompletionItemKind.Variable,
+                label: 'persistent'
+            },
+            {
+                kind: CompletionItemKind.Variable,
+                label: 'pauseable'
+            },
+            {
+                kind: CompletionItemKind.Variable,
+                label: 'depth'
+            },
+            {
+                kind: CompletionItemKind.Variable,
+                label: 'x'
+            },
+            {
+                kind: CompletionItemKind.Variable,
+                label: 'y'
+            }
+        ];
     }
 }
