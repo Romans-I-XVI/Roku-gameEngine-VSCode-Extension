@@ -57,7 +57,16 @@ export default class ObjectCompletionItemProvider implements CompletionItemProvi
     private completionItemsDictionary: { [key: string]: CompletionItem } = {
         onUpdate: {
             kind: CompletionItemKind.Snippet,
-            label: 'onUpdate'
+            label: 'onUpdate',
+            insertText: new vscode.SnippetString(
+                'onUpdate = function(dt as Float)\n' +
+                '\t$0\n' +
+                'end function'
+            ),
+            detail: 'onUpdate(dt as Float)',
+            documentation: new vscode.MarkdownString(
+                `The main update loop for an entity with delta time passed in.`
+            )
         }
-    }
+    };
 }
