@@ -41,57 +41,68 @@ export default class MObjectCompletionItemProvider implements CompletionItemProv
             {
                 kind: CompletionItemKind.Constant,
                 label: 'name',
-                detail: 'String'
+                detail: 'String',
+                documentation: 'The name of the game object as defined by defineObject'
             },
             {
                 kind: CompletionItemKind.Constant,
                 label: 'id',
-                detail: 'String'
+                detail: 'String',
+                documentation: 'The ID of this individual game object instance.'
             },
             {
                 kind: CompletionItemKind.Constant,
                 label: 'game',
-                detail: 'Object'
+                detail: 'Object',
+                documentation: 'A reference to the game root.'
             },
             {
                 kind: CompletionItemKind.Variable,
                 label: 'enabled',
-                detail: 'Boolean'
+                detail: 'Boolean',
+                documentation: 'Determines whether or not this instance will get processed by the game loop. Defaults to true.'
             },
             {
                 kind: CompletionItemKind.Variable,
                 label: 'persistent',
-                detail: 'Boolean'
+                detail: 'Boolean',
+                documentation: 'Determines whether this instance will persist through room changes. Defaults to false.'
             },
             {
                 kind: CompletionItemKind.Variable,
                 label: 'pauseable',
-                detail: 'Boolean'
+                detail: 'Boolean',
+                documentation: 'Determines whether this instances gets processed when the game is paused. Defaults to false.'
             },
             {
                 kind: CompletionItemKind.Variable,
                 label: 'depth',
-                detail: 'Integer'
+                detail: 'Integer',
+                documentation: 'Sets the order for processing of objects in the game loop. Objects with a higher number get processed first.'
             },
             {
                 kind: CompletionItemKind.Variable,
                 label: 'x',
-                detail: 'Float'
+                detail: 'Float',
+                documentation: 'The x position of the instance.'
             },
             {
                 kind: CompletionItemKind.Variable,
                 label: 'y',
-                detail: 'Float'
+                detail: 'Float',
+                documentation: 'The y position of the instance.'
             },
             {
                 kind: CompletionItemKind.Variable,
                 label: 'xspeed',
-                detail: 'Float'
+                detail: 'Float',
+                documentation: 'The x speed of the instance. Speed is multiplied by delta time before adjusting position.'
             },
             {
                 kind: CompletionItemKind.Variable,
                 label: 'yspeed',
-                detail: 'Float'
+                detail: 'Float',
+                documentation: 'The y speed of the instance. Speed is multiplied by delta time before adjusting position.'
             }
         ];
     }
