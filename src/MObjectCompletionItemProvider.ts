@@ -40,39 +40,58 @@ export default class MObjectCompletionItemProvider implements CompletionItemProv
         return [
             {
                 kind: CompletionItemKind.Constant,
-                label: 'name'
+                label: 'name',
+                detail: 'String'
             },
             {
                 kind: CompletionItemKind.Constant,
-                label: 'id'
+                label: 'id',
+                detail: 'String'
             },
             {
                 kind: CompletionItemKind.Constant,
-                label: 'game'
+                label: 'game',
+                detail: 'Object'
             },
             {
                 kind: CompletionItemKind.Variable,
-                label: 'enabled'
+                label: 'enabled',
+                detail: 'Boolean'
             },
             {
                 kind: CompletionItemKind.Variable,
-                label: 'persistent'
+                label: 'persistent',
+                detail: 'Boolean'
             },
             {
                 kind: CompletionItemKind.Variable,
-                label: 'pauseable'
+                label: 'pauseable',
+                detail: 'Boolean'
             },
             {
                 kind: CompletionItemKind.Variable,
-                label: 'depth'
+                label: 'depth',
+                detail: 'Integer'
             },
             {
                 kind: CompletionItemKind.Variable,
-                label: 'x'
+                label: 'x',
+                detail: 'Float'
             },
             {
                 kind: CompletionItemKind.Variable,
-                label: 'y'
+                label: 'y',
+                detail: 'Float'
+            },
+            {
+                kind: CompletionItemKind.Variable,
+                label: 'xspeed',
+                detail: 'Float'
+            },
+            {
+                kind: CompletionItemKind.Variable,
+                label: 'yspeed',
+                detail: 'Float'
             }
         ];
     }
