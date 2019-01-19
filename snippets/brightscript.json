@@ -35,5 +35,10 @@
 			"}"
 		],
 		"description": "Template with the default values of image_args to be passed in to addImage"
-    }
+	},
+	"drawtext": {
+		"prefix": "DrawText",
+		"body": "DrawText(${1:draw2d as Object}, ${2:text as String}, ${3:x as Integer}, ${4:y as Integer}, ${5:font as Object}, ${6|\"left\",\"right\",\"center\"|}${7: [, color = &hEBEBEBFF]})",
+		"description": "Helper function for drawing text with left, right, or center horizontal alignment."
+	}
 }
