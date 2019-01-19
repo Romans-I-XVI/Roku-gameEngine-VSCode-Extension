@@ -3,7 +3,7 @@
 	"displayName": "Roku-gameEngine",
 	"description": "Adds completion items for Roku projects using Roku-gameEngine.",
 	"version": "0.8.0",
-	"publisher": "Romans I XVI Gaming",
+	"publisher": "romansixvigaming",
 	"engines": {
 		"vscode": "^1.30.0"
 	},
