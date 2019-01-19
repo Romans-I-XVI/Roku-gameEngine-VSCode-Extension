@@ -21,3 +21,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.languages.registerCompletionItemProvider(selector, new ObjectCompletionItemProvider(), '.'));
 	context.subscriptions.push(vscode.languages.registerCompletionItemProvider(selector, new MObjectCompletionItemProvider(), '.'));
 }
+
+export function deactivate() {
+	MainDefinitionWatcher.Dispose();
+}

@@ -27,6 +27,10 @@ export default class MainDefinitionWatcher {
         this.watcher.onDidChange((event) => this.refreshDefinitions(event));
     }
 
+    public static Dispose() {
+        this.watcher.dispose();
+    }
+
     private static refreshDefinitions(uri: vscode.Uri) {
         for (let key in this._definitions) {
             this.loadDefinitions(uri, key);
