@@ -41,6 +41,16 @@
 		"body": "DrawText(${1:draw2d as Object}, ${2:text as String}, ${3:x as Integer}, ${4:y as Integer}, ${5:font as Object}, ${6|\"left\",\"right\",\"center\"|}${7: [, color = &hEBEBEBFF]})",
 		"description": "Helper function for drawing text with left, right, or center horizontal alignment."
 	},
+	"registryRead": {
+		"prefix": "registryRead",
+		"body": "registryRead(${1:registry_section as String}, ${2:key as String}, ${3:default_value = invalid as Dynamic})",
+		"description": "Returns a value from the registry, or default if one is supplied and no registry value exists yet."
+	},
+	"registryWrite": {
+		"prefix": "registryWrite",
+		"body": "registryWrite(${1:registry_section as String}, ${2:key as String}, ${3:value as Dynamic})",
+		"description": "Writes the supplied value to the registry. \nNote: Values are formatted to JSON before saving, so value can be any JSON formattable object."
+	},
 
 	"color_black": {
 		"prefix": "black :: color",
