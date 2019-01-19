@@ -40,7 +40,6 @@ export default class MainDefinitionWatcher {
             let matches = text.match(expression);
             if (matches !== null) {
                 matches.forEach(match => {
-                    console.log(match);
                     let submatches = match.match('"(.*)"');
                     if (submatches !== null) {
                         let submatch = submatches[0];
