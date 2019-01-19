@@ -4,6 +4,10 @@
 	"description": "Adds completion items for Roku projects using Roku-gameEngine.",
 	"version": "0.8.0",
 	"publisher": "romansixvigaming",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Romans-I-XVI/Roku-gameEngine-VSCode-Extension"
+	},
 	"engines": {
 		"vscode": "^1.30.0"
 	},
