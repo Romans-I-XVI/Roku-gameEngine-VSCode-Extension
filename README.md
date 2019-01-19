@@ -4,8 +4,6 @@ This extension provides completion items and snippets for projects using [Roku-g
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 0.8.0
 
 Initial functioning completion items for game objects. Also includes some basic engine specific snippets.
