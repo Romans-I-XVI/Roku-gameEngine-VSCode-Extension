@@ -40,5 +40,50 @@
 		"prefix": "DrawText",
 		"body": "DrawText(${1:draw2d as Object}, ${2:text as String}, ${3:x as Integer}, ${4:y as Integer}, ${5:font as Object}, ${6|\"left\",\"right\",\"center\"|}${7: [, color = &hEBEBEBFF]})",
 		"description": "Helper function for drawing text with left, right, or center horizontal alignment."
+	},
+
+	"color_black": {
+		"prefix": "black :: color",
+		"body": "&h000000FF"
+	},
+    "color_white": {
+		"prefix": "white :: color",
+		"body": "&hFFFFFFFF"
+	},
+    "color_red": {
+		"prefix": "red :: color",
+		"body": "&hFF0000FF"
+	},
+    "color_green": {
+		"prefix": "green :: color",
+		"body": "&h00FF00FF"
+	},
+    "color_blue": {
+		"prefix": "blue :: color",
+		"body": "&h0000FFFF"
+	},
+    "color_cyan": {
+		"prefix": "cyan :: color",
+		"body": "&h00FFFFFF"
+	},
+    "color_magenta": {
+		"prefix": "magenta :: color",
+		"body": "&hFF00FFFF"
+	},
+    "color_yellow": {
+		"prefix": "yellow :: color",
+		"body": "&hFFFF00FF"
+	},
+    "color_orange": {
+		"prefix": "orange :: color",
+		"body": "&hFF7F00FF"
+	},
+    "color_rose": {
+		"prefix": "rose :: color",
+		"body": "&hFF007FFF"
+	},
+    "color_violet": {
+		"prefix": "violet :: color",
+		"body": "&h7F00FFFF"
 	}
 }
