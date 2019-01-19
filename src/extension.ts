@@ -13,7 +13,7 @@ import MainDefinitionWatcher from './MainDefinitionWatcher';
 
 export function activate(context: vscode.ExtensionContext) {
 
-    const mainDefinitionWatcher = new MainDefinitionWatcher();
+    MainDefinitionWatcher.Initialize();
 
     const selector = { scheme: 'file', pattern: '**/*.{brs}' };
 

@@ -12,9 +12,10 @@ export default class MainDefinitionWatcher {
         return MainDefinitionWatcher._definitions;
     }
 
-    private regexSuffix: string = '(.*?)\\((.*?)"(.*?)"';
+    private static regexSuffix: string = '(.*?)\\((.*?)"(.*?)"';
+    private static watcher: vscode.FileSystemWatcher;
 
-    public constructor() {
+    public static Initialize() {
         vscode.workspace.findFiles('**/*main.brs').then(
             (value) => {
                 if (value.length > 0) {
@@ -22,17 +23,17 @@ export default class MainDefinitionWatcher {
                 }
             }
         );
-        var watcher = vscode.workspace.createFileSystemWatcher('**/*main.brs');
-        watcher.onDidChange((event) => this.refreshDefinitions(event));
+        this.watcher = vscode.workspace.createFileSystemWatcher('**/*main.brs');
+        this.watcher.onDidChange((event) => this.refreshDefinitions(event));
     }
 
-    private refreshDefinitions(uri: vscode.Uri) {
-        for (let key in MainDefinitionWatcher._definitions) {
+    private static refreshDefinitions(uri: vscode.Uri) {
+        for (let key in this._definitions) {
             this.loadDefinitions(uri, key);
         }
     }
 
-    private loadDefinitions(uri: vscode.Uri, key: string) {
+    private static loadDefinitions(uri: vscode.Uri, key: string) {
         vscode.workspace.openTextDocument(uri).then((mainTextDocument) => {
             MainDefinitionWatcher._definitions[key] = [];
             let text = mainTextDocument.getText();
