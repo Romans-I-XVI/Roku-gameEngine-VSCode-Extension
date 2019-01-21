@@ -213,6 +213,19 @@ export default class ObjectCompletionItemProvider implements CompletionItemProvi
                 `Called immediately on all entities when postGameEvent was triggered.`
             )
         },
+        onResume: {
+            kind: CompletionItemKind.Snippet,
+            label: 'onResume',
+            insertText: new vscode.SnippetString(
+                'onResume = function(paused_time as Integer)\n' +
+                '\t$0\n' +
+                'end function'
+            ),
+            detail: 'onResume(paused_time as Integer)',
+            documentation: new vscode.MarkdownString(
+                `Called when a previously paused game gets resumed. paused_time is how long the game was paused in milliseconds.`
+            )
+        },
         onChangeRoom: {
             kind: CompletionItemKind.Snippet,
             label: 'onChangeRoom',
