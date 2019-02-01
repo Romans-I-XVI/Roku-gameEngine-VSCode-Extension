@@ -1,6 +1,15 @@
 import * as vscode from 'vscode';
 
 export default class MainDefinitionWatcher {
+    private static _function_names: { [key: string]: { [key: string]: string } } = {
+        defineObject: {},
+        defineRoom: {},
+        defineInterface: {}
+    };
+    public static get FunctionNames(): { [key: string]: { [key: string]: string } } {
+        return MainDefinitionWatcher._function_names;
+    }
+
     private static _definitions: { [key: string]: string[] } = {
         defineObject: [],
         defineRoom: [],
@@ -25,7 +34,7 @@ export default class MainDefinitionWatcher {
         return s;
     }
 
-    private static regexSuffix: string = '(.*?)\\((.*?)"(.*?)"';
+    private static regexSuffix: string = '(.*?)\\((.*?)\\)';
     private static watcher: vscode.FileSystemWatcher;
 
     public static Initialize() {
@@ -53,16 +62,27 @@ export default class MainDefinitionWatcher {
     private static loadDefinitions(uri: vscode.Uri, key: string) {
         vscode.workspace.openTextDocument(uri).then((mainTextDocument) => {
             MainDefinitionWatcher._definitions[key] = [];
+            MainDefinitionWatcher._function_names[key] = {};
             let text = mainTextDocument.getText();
             let expression = new RegExp(key + this.regexSuffix, 'ig');
             let matches = text.match(expression);
             if (matches !== null) {
                 matches.forEach(match => {
-                    let submatches = match.match('"(.*)"');
-                    if (submatches !== null) {
-                        let submatch = submatches[0];
-                        submatch = submatch.substring(1, submatch.length - 1);
-                        MainDefinitionWatcher._definitions[key].push(submatch);
+                    let definition_submatches = match.match('"(.*?)"');
+                    if (definition_submatches !== null) {
+                        let definition_submatch = definition_submatches[0];
+                        definition_submatch = definition_submatch.substring(1, definition_submatch.length - 1);
+                        MainDefinitionWatcher._definitions[key].push(definition_submatch);
+
+                        if (key === 'defineObject' || key === "defineRoom" || key === "defineInterface") {
+                            let function_submatches = match.match(',(.*)\\)');
+                            if (function_submatches !== null) {
+                                let function_submatch = function_submatches[0];
+                                function_submatch = function_submatch.substring(1, function_submatch.length - 1);
+                                function_submatch = function_submatch.trim();
+                                MainDefinitionWatcher._function_names[key][definition_submatch] = function_submatch;
+                            }
+                        }
                     }
                 });
             }
