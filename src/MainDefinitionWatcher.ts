@@ -7,9 +7,22 @@ export default class MainDefinitionWatcher {
         loadFont: [],
         loadSound: [],
         loadBitmap: [],
+        defineInterface: []
     };
     public static get Definitions(): { [key: string]: string[] } {
         return MainDefinitionWatcher._definitions;
+    }
+
+    public static GetDefinitionsAsCommaSeparatedStrings(key: string): string {
+        let definitions = this._definitions[key];
+        let s = '';
+        for (let index = 0; index < definitions.length; index++) {
+            s += '"' + definitions[index] + '"';
+            if (index < definitions.length - 1) {
+                s += ',';
+            }
+        }
+        return s;
     }
 
     private static regexSuffix: string = '(.*?)\\((.*?)"(.*?)"';
