@@ -21,24 +21,13 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
         return [];
     }
 
-    private convertDefinitionsArrayToCommaSeparatedStrings(definitions: string[]): string {
-        let s = '';
-        for (let index = 0; index < definitions.length; index++) {
-            s += '"' + definitions[index] + '"';
-            if (index < definitions.length - 1) {
-                s += ',';
-            }
-        }
-        return s;
-    }
-
     private getGameCompletionItems(): CompletionItem[] {
         let completionItems = this.getStaticCompletionItems();
-        let defineObjectString = this.convertDefinitionsArrayToCommaSeparatedStrings(MainDefinitionWatcher.Definitions['defineObject']);
-        let defineRoomString = this.convertDefinitionsArrayToCommaSeparatedStrings(MainDefinitionWatcher.Definitions['defineRoom']);
-        let loadFontString = this.convertDefinitionsArrayToCommaSeparatedStrings(MainDefinitionWatcher.Definitions['loadFont']);
-        let loadSoundString = this.convertDefinitionsArrayToCommaSeparatedStrings(MainDefinitionWatcher.Definitions['loadSound']);
-        let loadBitmapString = this.convertDefinitionsArrayToCommaSeparatedStrings(MainDefinitionWatcher.Definitions['loadBitmap']);
+        let defineObjectString = MainDefinitionWatcher.GetDefinitionsAsCommaSeparatedStrings('defineObject');
+        let defineRoomString = MainDefinitionWatcher.GetDefinitionsAsCommaSeparatedStrings('defineRoom');
+        let loadFontString = MainDefinitionWatcher.GetDefinitionsAsCommaSeparatedStrings('loadFont');
+        let loadSoundString = MainDefinitionWatcher.GetDefinitionsAsCommaSeparatedStrings('loadSound');
+        let loadBitmapString = MainDefinitionWatcher.GetDefinitionsAsCommaSeparatedStrings('loadBitmap');
 
         completionItems.push(this.getDynamicCompletionItem_createInstance(defineObjectString));
         completionItems.push(this.getDynamicCompletionItem_getInstanceByName(defineObjectString));

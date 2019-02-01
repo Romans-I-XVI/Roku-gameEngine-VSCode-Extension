@@ -7,6 +7,7 @@ import {
 } from 'vscode';
 
 import * as vscode from 'vscode';
+import MainDefinitionWatcher from './MainDefinitionWatcher';
 
 export default class MObjectCompletionItemProvider implements CompletionItemProvider {
 
@@ -23,6 +24,10 @@ export default class MObjectCompletionItemProvider implements CompletionItemProv
 
 
         if (endsWithM && !precededByChars && partOfGameObject) {
+            let defineInterfaceString = MainDefinitionWatcher.GetDefinitionsAsCommaSeparatedStrings('defineInterface');
+            completionItems.push(this.getDynamicCompletionItem_addInterface(defineInterfaceString));
+            completionItems.push(this.getDynamicCompletionItem_hasInterface(defineInterfaceString));
+
             let variableCompletionItems = this.getStandardObjectVariableCompletionItems();
             variableCompletionItems.forEach(element => {
                 completionItems.push(element);
@@ -34,6 +39,50 @@ export default class MObjectCompletionItemProvider implements CompletionItemProv
         }
 
         return completionItems;
+    }
+
+    private getDynamicCompletionItem_addInterface(definitions: string): CompletionItem {
+        let snippet = 'addInterface';
+
+        if (definitions.length > 0) {
+            snippet += '(${1|';
+            snippet += definitions;
+            snippet += '|})';
+        } else {
+            snippet += '(${1:interface_name as String})';
+        }
+
+        return {
+            kind: CompletionItemKind.Method,
+            label: 'addInterface',
+            insertText: new vscode.SnippetString(snippet),
+            detail: 'addInterface(interface_name as String) as Void',
+            documentation: new vscode.MarkdownString(
+                `Adds a previously defined interface to the object instance.`
+            )
+        };
+    }
+
+    private getDynamicCompletionItem_hasInterface(definitions: string): CompletionItem {
+        let snippet = 'hasInterface';
+
+        if (definitions.length > 0) {
+            snippet += '(${1|';
+            snippet += definitions;
+            snippet += '|})';
+        } else {
+            snippet += '(${1:interface_name as String})';
+        }
+
+        return {
+            kind: CompletionItemKind.Method,
+            label: 'hasInterface',
+            insertText: new vscode.SnippetString(snippet),
+            detail: 'hasInterface(interface_name as String) as Void',
+            documentation: new vscode.MarkdownString(
+                `Returns true if the given interface has been added to this object instance.`
+            )
+        };
     }
 
     private getStandardObjectVariableCompletionItems(): CompletionItem[] {
