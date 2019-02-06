@@ -64,7 +64,7 @@ export default class MObjectCompletionItemProvider implements CompletionItemProv
         let definition_matches = document.getText().match(new RegExp(prefix + '\\.(.*)=(.*)', 'ig'));
         if (definition_matches !== null) {
             definition_matches.forEach(element => {
-                let submatch = element.match(new RegExp(prefix + '\\.(.*)=', 'i'));
+                let submatch = element.match(new RegExp(prefix + '\\.(.*?)=', 'i'));
                 if (submatch !== null) {
                     let name = submatch[1].trim();
                     let kind = CompletionItemKind.Variable;
