@@ -4,6 +4,10 @@ This extension provides completion items and snippets for projects using [Roku-g
 
 ## Release Notes
 
+### 0.8.3
+
+Added completion items for user defined methods and variables in game objects.
+
 ### 0.8.2
 
 Added completion items for game engine interface definitions.
