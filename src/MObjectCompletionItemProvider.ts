@@ -20,8 +20,13 @@ export default class MObjectCompletionItemProvider implements CompletionItemProv
             return [];
         }
         let precededByChars = (linePrefix.match(new RegExp('([a-z|0-9|_])m\\.', 'i')) !== null);
-        let partOfGameObject = (document.getText().match(new RegExp('object\\.onCreate(\\s*)=(\\s*)function', 'i')) !== null);
-
+        let partOfGameObject = false;
+        let onCreateLineMatch = document.getText().match(new RegExp('([a-z|0-9|_]*)\\.onCreate(\\s*)=(\\s*)function', 'i'));
+        let definitionPassInString = "";
+        if (onCreateLineMatch !== null) {
+            partOfGameObject = true;
+            definitionPassInString = onCreateLineMatch[1];
+        }
 
         if (endsWithM && !precededByChars && partOfGameObject) {
             let defineInterfaceString = MainDefinitionWatcher.GetDefinitionsAsCommaSeparatedStrings('defineInterface');
@@ -36,9 +41,45 @@ export default class MObjectCompletionItemProvider implements CompletionItemProv
             methodCompletionItems.forEach(element => {
                 completionItems.push(element);
             });
+
+            let userDataCompletionItems = this.getUserDataCompletionItems(document, definitionPassInString);
+            userDataCompletionItems.forEach(element => {
+                let should_add = true;
+                completionItems.forEach(other_element => {
+                    if (element.label === other_element.label) {
+                        should_add = false;
+                    }
+                });
+                if (should_add) {
+                    completionItems.push(element);
+                }
+            });
         }
 
         return completionItems;
+    }
+
+    private getUserDataCompletionItems(document: TextDocument, prefix: string): CompletionItem[] {
+        let completion_items: CompletionItem[] = [];
+        let definition_matches = document.getText().match(new RegExp(prefix + '\\.(.*)=(.*)', 'ig'));
+        if (definition_matches !== null) {
+            definition_matches.forEach(element => {
+                let submatch = element.match(new RegExp(prefix + '\\.(.*?)=', 'i'));
+                if (submatch !== null) {
+                    let name = submatch[1].trim();
+                    let kind = CompletionItemKind.Variable;
+                    if (element.match(new RegExp('(.*)=(.*)function(\\s*)\\(', 'i')) !== null) {
+                        kind = CompletionItemKind.Method;
+                    }
+                    completion_items.push({
+                        label: name,
+                        kind: kind
+                    });
+                }
+            });
+        }
+
+        return completion_items;
     }
 
     private getDynamicCompletionItem_addInterface(definitions: string): CompletionItem {
