@@ -243,6 +243,33 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
         return [
             {
                 kind: CompletionItemKind.Method,
+                label: 'debugDrawColliders',
+                insertText: new vscode.SnippetString('debugDrawColliders(${1:enabled as Boolean})'),
+                detail: 'debugDrawColliders(enabled as Boolean) as Void',
+                documentation: new vscode.MarkdownString(
+                    `This enables or disables the drawing of all colliders.`
+                )
+            },
+            {
+                kind: CompletionItemKind.Method,
+                label: 'debugDrawSafeZones',
+                insertText: new vscode.SnippetString('debugDrawSafeZones(${1:enabled as Boolean})'),
+                detail: 'debugDrawSafeZones(enabled as Boolean) as Void',
+                documentation: new vscode.MarkdownString(
+                    `This enables or disables the drawing of safe zones.`
+                )
+            },
+            {
+                kind: CompletionItemKind.Method,
+                label: 'debugLimitFrameRate',
+                insertText: new vscode.SnippetString('debugLimitFrameRate(${1:limit_frame_rate as Integer})'),
+                detail: 'debugLimitFrameRate(limit_frame_rate as Integer) as Void',
+                documentation: new vscode.MarkdownString(
+                    `This sets the frame rate limit for the testing game behavior under such circumstances. Default is 0, which is no limit.`
+                )
+            },
+            {
+                kind: CompletionItemKind.Method,
                 label: 'drawColliders',
                 insertText: new vscode.SnippetString('drawColliders(${1:instance as Object}${2: [, color = &hFF0000FF]})'),
                 detail: 'drawColliders(instance as Object, color = &hFF0000FF) as Void',
