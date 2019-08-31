@@ -238,10 +238,19 @@ export default class MObjectCompletionItemProvider implements CompletionItemProv
             {
                 kind: CompletionItemKind.Method,
                 label: 'addImage',
-                insertText: new vscode.SnippetString('addImage(${1:image as Object}${2: [, image_args as Object]})'),
-                detail: 'addImage(image as Object, images_args as Object) as Boolean',
+                insertText: new vscode.SnippetString('addImage(${1:name as Object}, ${2:region as Object}${3: [, image_args as Object]})'),
+                detail: 'addImage(name as String, region as Object, images_args as Object) as Boolean',
                 documentation: new vscode.MarkdownString(
-                    `Adds an image to the entity. Image must be of type roBitmap or roRegion. Image args are optional and should be an roAssociativeArray of valid properties. Returns true if successful.`
+                    `Adds an image to the entity. Region must be of type roRegion. Image args are optional and should be an roAssociativeArray of valid properties. Returns true if successful.`
+                )
+            },
+            {
+                kind: CompletionItemKind.Method,
+                label: 'addAnimatedImage',
+                insertText: new vscode.SnippetString('addAnimatedImage(${1:name as Object}, ${2:regions as Object}${3: [, image_args as Object]})'),
+                detail: 'addAnimatedImage(name as String, regions as Object, images_args as Object) as Boolean',
+                documentation: new vscode.MarkdownString(
+                    `Adds an animated image to the entity. Regions must be an array of roRegion obects. Image args are optional and should be an roAssociativeArray of valid properties. Returns true if successful.`
                 )
             },
             {
