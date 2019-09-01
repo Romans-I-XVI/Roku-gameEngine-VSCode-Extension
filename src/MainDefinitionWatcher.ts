@@ -62,7 +62,16 @@ export default class MainDefinitionWatcher {
                     if (submatches !== null) {
                         let submatch = submatches[0];
                         submatch = submatch.substring(1, submatch.length - 1);
-                        MainDefinitionWatcher._definitions[key].push(submatch);
+                        let duplicate = false;
+                        MainDefinitionWatcher._definitions[key].forEach(element => {
+                            if (submatch === element) {
+                                duplicate = true;
+                            }
+                        });
+
+                        if (!duplicate) {
+                            MainDefinitionWatcher._definitions[key].push(submatch);
+                        }
                     }
                 });
             }
