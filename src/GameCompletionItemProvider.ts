@@ -71,7 +71,7 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
             snippet += definitions;
             snippet += '|})';
         } else {
-            snippet += 'getInstanceByName(${1:object_name as String})';
+            snippet += '(${1:object_name as String})';
         }
 
         return {
@@ -93,7 +93,7 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
             snippet += definitions;
             snippet += '|})';
         } else {
-            snippet += 'getAllInstances(${1:object_name as String})';
+            snippet += '(${1:object_name as String})';
         }
 
         return {
@@ -115,7 +115,7 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
             snippet += definitions;
             snippet += '|})';
         } else {
-            snippet += 'destroyAllInstances(${1:object_name as String})';
+            snippet += '(${1:object_name as String})';
         }
 
         return {
@@ -137,7 +137,7 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
             snippet += definitions;
             snippet += '|})';
         } else {
-            snippet += 'instanceCount(${1:object_name as String})';
+            snippet += '(${1:object_name as String})';
         }
 
         return {
