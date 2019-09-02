@@ -11,12 +11,10 @@ import ObjectCompletionItemProvider from './ObjectCompletionItemProvider';
 import MObjectCompletionItemProvider from './MObjectCompletionItemProvider';
 import InterfaceCompletionItemProvider from './InterfaceCompletionItemProvider';
 import MainDefinitionWatcher from './MainDefinitionWatcher';
-import InterfaceDefinitionWatcher from './InterfaceDefinitionWatcher';
 
 export function activate(context: vscode.ExtensionContext) {
 
 	MainDefinitionWatcher.Initialize();
-	InterfaceDefinitionWatcher.Initialize();
 
     const selector = { scheme: 'file', pattern: '**/*.{brs}' };
 

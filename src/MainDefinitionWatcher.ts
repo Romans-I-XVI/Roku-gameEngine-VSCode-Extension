@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import InterfaceDefinitionWatcher from './InterfaceDefinitionWatcher';
 
 export default class MainDefinitionWatcher {
     private static _function_names: { [key: string]: { [key: string]: string } } = {
@@ -43,6 +44,7 @@ export default class MainDefinitionWatcher {
                 if (value.length > 0) {
                     this.refreshDefinitions(value[0]);
                 }
+	            InterfaceDefinitionWatcher.Initialize();
             }
         );
         this.watcher = vscode.workspace.createFileSystemWatcher('**/*main.brs');

@@ -1,7 +1,6 @@
 import {
     CancellationToken,
     CompletionItem,
-    CompletionItemKind,
     CompletionItemProvider,
     Position, TextDocument
 } from 'vscode';

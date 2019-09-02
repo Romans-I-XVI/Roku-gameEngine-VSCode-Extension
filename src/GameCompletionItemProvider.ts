@@ -24,6 +24,7 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
     private getGameCompletionItems(): CompletionItem[] {
         let completionItems = this.getStaticCompletionItems();
         let defineObjectString = MainDefinitionWatcher.GetDefinitionsAsCommaSeparatedStrings('defineObject');
+        let defineInterfaceString = MainDefinitionWatcher.GetDefinitionsAsCommaSeparatedStrings('defineInterface');
         let defineRoomString = MainDefinitionWatcher.GetDefinitionsAsCommaSeparatedStrings('defineRoom');
         let loadFontString = MainDefinitionWatcher.GetDefinitionsAsCommaSeparatedStrings('loadFont');
         let loadSoundString = MainDefinitionWatcher.GetDefinitionsAsCommaSeparatedStrings('loadSound');
@@ -32,6 +33,7 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
         completionItems.push(this.getDynamicCompletionItem_createInstance(defineObjectString));
         completionItems.push(this.getDynamicCompletionItem_getInstanceByName(defineObjectString));
         completionItems.push(this.getDynamicCompletionItem_getAllInstances(defineObjectString));
+        completionItems.push(this.getDynamicCompletionItem_getAllInstancesWithInterface(defineInterfaceString));
         completionItems.push(this.getDynamicCompletionItem_destroyAllInstances(defineObjectString));
         completionItems.push(this.getDynamicCompletionItem_instanceCount(defineObjectString));
         completionItems.push(this.getDynamicCompletionItem_changeRoom(defineRoomString));
@@ -71,7 +73,7 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
             snippet += definitions;
             snippet += '|})';
         } else {
-            snippet += 'getInstanceByName(${1:object_name as String})';
+            snippet += '(${1:object_name as String})';
         }
 
         return {
@@ -93,7 +95,7 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
             snippet += definitions;
             snippet += '|})';
         } else {
-            snippet += 'getAllInstances(${1:object_name as String})';
+            snippet += '(${1:object_name as String})';
         }
 
         return {
@@ -107,6 +109,28 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
         };
     }
 
+    private getDynamicCompletionItem_getAllInstancesWithInterface(definitions: string): CompletionItem {
+        let snippet = 'getAllInstancesWithInterface';
+
+        if (definitions.length > 0) {
+            snippet += '(${1|';
+            snippet += definitions;
+            snippet += '|})';
+        } else {
+            snippet += '(${1:interface_name as String})';
+        }
+
+        return {
+            kind: CompletionItemKind.Method,
+            label: 'getAllInstancesWithInterface',
+            insertText: new vscode.SnippetString(snippet),
+            detail: 'getAllInstancesWithInterface(interface_name as String) as Dynamic',
+            documentation: new vscode.MarkdownString(
+                `Returns an roArray of all instances with a given interface, returns invalid if no interfaces have been defined with that name.`
+            )
+        };
+    }
+
     private getDynamicCompletionItem_destroyAllInstances(definitions: string): CompletionItem {
         let snippet = 'destroyAllInstances';
 
@@ -115,7 +139,7 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
             snippet += definitions;
             snippet += '|})';
         } else {
-            snippet += 'destroyAllInstances(${1:object_name as String})';
+            snippet += '(${1:object_name as String})';
         }
 
         return {
@@ -137,7 +161,7 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
             snippet += definitions;
             snippet += '|})';
         } else {
-            snippet += 'instanceCount(${1:object_name as String})';
+            snippet += '(${1:object_name as String})';
         }
 
         return {
@@ -241,6 +265,33 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
 
     private getStaticCompletionItems(): CompletionItem[] {
         return [
+            {
+                kind: CompletionItemKind.Method,
+                label: 'debugDrawColliders',
+                insertText: new vscode.SnippetString('debugDrawColliders(${1:enabled as Boolean})'),
+                detail: 'debugDrawColliders(enabled as Boolean) as Void',
+                documentation: new vscode.MarkdownString(
+                    `This enables or disables the drawing of all colliders.`
+                )
+            },
+            {
+                kind: CompletionItemKind.Method,
+                label: 'debugDrawSafeZones',
+                insertText: new vscode.SnippetString('debugDrawSafeZones(${1:enabled as Boolean})'),
+                detail: 'debugDrawSafeZones(enabled as Boolean) as Void',
+                documentation: new vscode.MarkdownString(
+                    `This enables or disables the drawing of safe zones.`
+                )
+            },
+            {
+                kind: CompletionItemKind.Method,
+                label: 'debugLimitFrameRate',
+                insertText: new vscode.SnippetString('debugLimitFrameRate(${1:limit_frame_rate as Integer})'),
+                detail: 'debugLimitFrameRate(limit_frame_rate as Integer) as Void',
+                documentation: new vscode.MarkdownString(
+                    `This sets the frame rate limit for the testing game behavior under such circumstances. Default is 0, which is no limit.`
+                )
+            },
             {
                 kind: CompletionItemKind.Method,
                 label: 'drawColliders',
