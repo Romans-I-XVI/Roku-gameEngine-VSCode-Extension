@@ -420,6 +420,15 @@ export default class GameCompletionItemProvider implements CompletionItemProvide
             },
             {
                 kind: CompletionItemKind.Method,
+                label: 'defineInterface',
+                insertText: new vscode.SnippetString('defineInterface(${1:interface_name as String}, ${2:interface_creation_function as Function})'),
+                detail: 'defineInterface(interface_name as String, interface_creation_function as Function) as Void',
+                documentation: new vscode.MarkdownString(
+                    `Define a new interface. The interface_creation_function should be a function that accepts and modifies the incoming interface object.`
+                )
+            },
+            {
+                kind: CompletionItemKind.Method,
                 label: 'defineRoom',
                 insertText: new vscode.SnippetString('defineRoom(${1:room_name as String}, ${2:room_creation_function as Function})'),
                 detail: 'defineRoom(room_name as String, room_creation_function as Function) as Void',

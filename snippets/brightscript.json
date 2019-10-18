@@ -12,6 +12,17 @@
 		],
 		"description": "Template for defining a new Roku-gameEngine object."
 	},
+	"engineobjectinterface": {
+		"prefix": "engineobjectinterface",
+		"body": [
+			"function if${1:}(interface)",
+			"",
+			"\t\t$0",
+			"",
+			"end function"
+		],
+		"description": "Template for defining a new Roku-gameEngine interface."
+	},
 	"image_args": {
 		"prefix": "image_args",
 		"body": [
