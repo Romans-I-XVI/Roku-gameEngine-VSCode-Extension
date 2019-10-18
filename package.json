@@ -2,7 +2,7 @@
 	"name": "roku-gameengine",
 	"displayName": "Roku-gameEngine",
 	"description": "Adds completion items for Roku projects using Roku-gameEngine.",
-	"version": "0.8.6",
+	"version": "0.8.7",
 	"publisher": "romansixvigaming",
 	"repository": {
 		"type": "git",
