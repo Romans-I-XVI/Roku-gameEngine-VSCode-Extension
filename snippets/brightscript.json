@@ -8,7 +8,8 @@
 			"\t\t$0",
 			"\tend function",
 			"",
-			"end function"
+			"end function",
+			""
 		],
 		"description": "Template for defining a new Roku-gameEngine object."
 	},
@@ -16,10 +17,10 @@
 		"prefix": "engineobjectinterface",
 		"body": [
 			"function if${1:}(interface)",
-			"",
 			"\t$0",
 			"",
-			"end function"
+			"end function",
+			""
 		],
 		"description": "Template for defining a new Roku-gameEngine interface."
 	},
