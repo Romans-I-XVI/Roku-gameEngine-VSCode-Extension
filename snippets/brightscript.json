@@ -17,7 +17,7 @@
 		"body": [
 			"function if${1:}(interface)",
 			"",
-			"\t\t$0",
+			"\t$0",
 			"",
 			"end function"
 		],
